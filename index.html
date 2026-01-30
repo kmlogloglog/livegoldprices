@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0a0a">
 <title>Live Gold Prices — Real-Time Gold Price per Ounce in USD, EUR &amp; More</title>
-<meta name="description" content="Track the live gold price per ounce in real time. View gold prices in USD, EUR, GBP, CHF, AUD, CAD, JPY, and INR with interactive charts, weight converter, and 24h market data.">
+<meta name="description" content="Track the live gold price per ounce in real time. View gold prices in USD, EUR, GBP, CHF, AUD, CAD, JPY, INR, SAR, and EGP with interactive charts, weight converter, and 24h market data.">
 <link rel="canonical" href="https://livegoldprices.com/">
 <!-- Open Graph -->
 <meta property="og:title" content="Live Gold Prices — Real-Time Gold Price per Ounce">
@@ -58,15 +58,6 @@
 </script>
 <style>
 /* ===== Dashboard-specific styles ===== */
-
-/* Header */
-.header{text-align:center;margin-bottom:32px;padding-top:12px}
-.logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:8px}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#0a0a0a;font-family:'JetBrains Mono',monospace;box-shadow:0 4px 20px rgba(255,215,0,0.2)}
-.logo-text{font-size:28px;font-weight:800;letter-spacing:6px;
-  background:linear-gradient(135deg,var(--gold-bright),var(--gold),var(--gold-dim));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header-sub{font-size:12px;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;font-weight:500}
 
 /* Status bar */
 .status-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:11px;color:var(--text-dim)}
@@ -169,8 +160,6 @@
   .grid-bottom{grid-template-columns:1fr}
   .price-value{font-size:36px}
   .price-decimal{font-size:22px}
-  .header{margin-bottom:20px}
-  .logo-text{font-size:22px;letter-spacing:4px}
   .chart-container{height:280px}
 }
 @media(max-width:380px){
@@ -194,9 +183,6 @@
     <div class="nav-logo-icon">Au</div>
     <div class="nav-logo-text">LIVE GOLD PRICES</div>
   </a>
-  <button class="nav-hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
   <ul class="nav-links">
     <li><a href="/" class="active">Dashboard</a></li>
     <li><a href="/blog/">Blog</a></li>
@@ -206,33 +192,26 @@
 </nav>
 
 <div class="container">
-  <!-- Header -->
-  <header class="header fade-in">
-    <div class="logo">
-      <div class="logo-icon">Au</div>
-      <div class="logo-text">LIVE GOLD PRICES</div>
-    </div>
-    <div class="header-sub">Real-Time Gold Intelligence</div>
-    <div class="status-bar">
-      <div class="status-dot" id="statusDot"></div>
-      <span id="statusText">Connecting to market data...</span>
-      <span style="margin-left:8px;opacity:0.4">|</span>
-      <div class="refresh-ring" title="Next refresh">
-        <svg viewBox="0 0 20 20">
-          <circle class="bg" cx="10" cy="10" r="8"/>
-          <circle class="fg" id="refreshRing" cx="10" cy="10" r="8"/>
-        </svg>
-      </div>
-      <span id="refreshCountdown">30s</span>
-    </div>
-  </header>
-
   <!-- Market bar -->
   <div class="market-bar fade-in" style="animation-delay:0.1s">
     <div class="market-item"><span class="label">XAU/USD</span></div>
     <div class="market-item"><span class="label">Spread:</span><span class="val" id="spread">—</span></div>
     <div class="market-item"><span class="label">24h Vol:</span><span class="val" id="volume">—</span></div>
     <div class="market-item"><span class="label">EUR/USD:</span><span class="val" id="eurRate">—</span></div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar fade-in" style="animation-delay:0.1s">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Connecting to market data...</span>
+    <span style="margin-left:8px;opacity:0.4">|</span>
+    <div class="refresh-ring" title="Next refresh">
+      <svg viewBox="0 0 20 20">
+        <circle class="bg" cx="10" cy="10" r="8"/>
+        <circle class="fg" id="refreshRing" cx="10" cy="10" r="8"/>
+      </svg>
+    </div>
+    <span id="refreshCountdown">30s</span>
   </div>
 
   <!-- Live Ticker Tape -->
@@ -290,6 +269,8 @@
         <div class="currency-pill" data-currency="CAD">CAD</div>
         <div class="currency-pill" data-currency="JPY">JPY</div>
         <div class="currency-pill" data-currency="INR">INR</div>
+        <div class="currency-pill" data-currency="SAR">SAR</div>
+        <div class="currency-pill" data-currency="EGP">EGP</div>
       </div>
     </div>
   </div>
@@ -315,6 +296,42 @@
       <div class="card-label">📊 Range</div>
       <div class="stat-value" id="range24">—</div>
       <div class="stat-sub" id="rangePercent"></div>
+    </div>
+  </div>
+
+  <!-- Precious Metals Spot -->
+  <div class="card fade-in" style="animation-delay:0.22s;padding:0;overflow:hidden;margin-bottom:16px">
+    <div style="height:420px">
+      <div class="tradingview-widget-container" style="height:100%">
+        <div class="tradingview-widget-container__widget" style="height:100%"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+        {
+          "colorTheme": "dark",
+          "dateRange": "1D",
+          "showChart": true,
+          "locale": "en",
+          "width": "100%",
+          "height": "100%",
+          "largeChartUrl": "",
+          "isTransparent": true,
+          "showSymbolLogo": true,
+          "showFloatingTooltip": true,
+          "tabs": [
+            {
+              "title": "Precious Metals",
+              "symbols": [
+                {"s": "OANDA:XAUUSD", "d": "Gold"},
+                {"s": "OANDA:XAGUSD", "d": "Silver"},
+                {"s": "NYMEX:PL1!", "d": "Platinum"},
+                {"s": "NYMEX:PA1!", "d": "Palladium"},
+                {"s": "TVC:DXY", "d": "US Dollar Index"},
+                {"s": "OANDA:EURUSD", "d": "EUR/USD"}
+              ]
+            }
+          ]
+        }
+        </script>
+      </div>
     </div>
   </div>
 
@@ -349,6 +366,8 @@
           <option value="CAD">CAD</option>
           <option value="JPY">JPY</option>
           <option value="INR">INR</option>
+          <option value="SAR">SAR</option>
+          <option value="EGP">EGP</option>
         </select>
       </div>
       <div class="converter-grid">
@@ -381,7 +400,7 @@
       <a href="/blog/">Blog</a>
       <a href="/news.html">News</a>
     </div>
-    <div class="footer-copy">&copy; 2025 Live Gold Prices &middot; Built by <a href="https://ramlabs.eu" target="_blank" rel="noopener">ramlabs.eu</a></div>
+    <div class="footer-copy">&copy; 2026 Live Gold Prices &middot; Built by <a href="https://ramlabs.eu" target="_blank" rel="noopener">ramlabs.eu</a></div>
   </footer>
 </div>
 
@@ -412,7 +431,9 @@ const currencyInfo = {
   AUD: { flag: '🇦🇺', name: 'AUSTRALIAN DOLLAR', symbol: 'A$', decimals: 2 },
   CAD: { flag: '🇨🇦', name: 'CANADIAN DOLLAR', symbol: 'C$', decimals: 2 },
   JPY: { flag: '🇯🇵', name: 'JAPANESE YEN', symbol: '¥', decimals: 0 },
-  INR: { flag: '🇮🇳', name: 'INDIAN RUPEE', symbol: '₹', decimals: 0 }
+  INR: { flag: '🇮🇳', name: 'INDIAN RUPEE', symbol: '₹', decimals: 0 },
+  SAR: { flag: '🇸🇦', name: 'SAUDI RIYAL', symbol: 'SAR ', decimals: 2 },
+  EGP: { flag: '🇪🇬', name: 'EGYPTIAN POUND', symbol: 'E£', decimals: 0 }
 };
 
 // ===== PARTICLES =====
@@ -515,9 +536,12 @@ async function fetchGoldData() {
 
 async function fetchFXRates() {
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,CHF,AUD,CAD,JPY,INR');
+    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,CHF,AUD,CAD,JPY,INR,SAR,EGP');
     const data = await res.json();
     state.fxRates = data.rates;
+    // Frankfurter may not have SAR/EGP — use fixed approximate rates as fallback
+    if (!state.fxRates.SAR) state.fxRates.SAR = 3.75; // SAR is pegged to USD at ~3.75
+    if (!state.fxRates.EGP) state.fxRates.EGP = 50.5; // EGP approximate rate
     state.eurRate = data.rates.EUR;
     document.getElementById('eurRate').textContent = state.eurRate.toFixed(4);
     updateMainPrice();
@@ -568,12 +592,23 @@ function updateMainPrice() {
 }
 
 function updateStats() {
-  document.getElementById('high24').textContent = '$' + fmt(Math.max(state.priceUSD, state.closeUSD));
-  document.getElementById('low24').textContent = '$' + fmt(Math.min(state.priceUSD, state.closeUSD) - Math.abs(state.changeUSD) * 0.3);
-  document.getElementById('openPrice').textContent = '$' + fmt(state.closeUSD);
-  document.getElementById('range24').textContent = '$' + fmt(Math.abs(state.changeUSD * 1.2));
+  const curr = state.selectedCurrency;
+  const info = currencyInfo[curr] || currencyInfo.USD;
+  const sym = info.symbol;
+  const dec = info.decimals;
+  const price = getGoldPriceInCurrency(curr);
+  const { change } = getChangeInCurrency(curr);
+
+  if (!price) return;
+
+  const close = curr === 'USD' ? state.closeUSD : (curr === 'EUR' ? state.closeEUR : (state.closeUSD * (state.fxRates[curr] || 1)));
+
+  document.getElementById('high24').textContent = sym + fmt(Math.max(price, close), dec);
+  document.getElementById('low24').textContent = sym + fmt(Math.min(price, close) - Math.abs(change) * 0.3, dec);
+  document.getElementById('openPrice').textContent = sym + fmt(close, dec);
+  document.getElementById('range24').textContent = sym + fmt(Math.abs(change * 1.2), dec);
   document.getElementById('rangePercent').textContent = fmt(Math.abs(state.pcUSD * 1.2)) + '% spread';
-  document.getElementById('spread').textContent = '$' + fmt(state.priceUSD * 0.0003);
+  document.getElementById('spread').textContent = sym + fmt(price * 0.0003, dec);
   document.getElementById('volume').textContent = (150 + Math.random() * 80).toFixed(1) + 'K';
 }
 
