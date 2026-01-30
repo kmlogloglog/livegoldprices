@@ -192,13 +192,6 @@
 </nav>
 
 <div class="container">
-  <!-- Market bar -->
-  <div class="market-bar fade-in" style="animation-delay:0.1s">
-    <div class="market-item"><span class="label">XAU/USD</span></div>
-    <div class="market-item"><span class="label">Spread:</span><span class="val" id="spread">—</span></div>
-    <div class="market-item"><span class="label">24h Vol:</span><span class="val" id="volume">—</span></div>
-    <div class="market-item"><span class="label">EUR/USD:</span><span class="val" id="eurRate">—</span></div>
-  </div>
 
   <!-- Status bar -->
   <div class="status-bar fade-in" style="animation-delay:0.1s">
@@ -321,11 +314,7 @@
               "title": "Precious Metals",
               "symbols": [
                 {"s": "OANDA:XAUUSD", "d": "Gold"},
-                {"s": "OANDA:XAGUSD", "d": "Silver"},
-                {"s": "NYMEX:PL1!", "d": "Platinum"},
-                {"s": "NYMEX:PA1!", "d": "Palladium"},
-                {"s": "TVC:DXY", "d": "US Dollar Index"},
-                {"s": "OANDA:EURUSD", "d": "EUR/USD"}
+                {"s": "OANDA:XAGUSD", "d": "Silver"}
               ]
             }
           ]
@@ -545,7 +534,6 @@ async function fetchFXRates() {
     if (!state.fxRates.SAR) state.fxRates.SAR = 3.75; // SAR is pegged to USD at ~3.75
     if (!state.fxRates.EGP) state.fxRates.EGP = 50.5; // EGP approximate rate
     state.eurRate = data.rates.EUR;
-    document.getElementById('eurRate').textContent = state.eurRate.toFixed(4);
     updateMainPrice();
   } catch (e) {
     console.error('FX rate error:', e);
@@ -610,8 +598,6 @@ function updateStats() {
   document.getElementById('openPrice').textContent = sym + fmt(close, dec);
   document.getElementById('range24').textContent = sym + fmt(Math.abs(change * 1.2), dec);
   document.getElementById('rangePercent').textContent = fmt(Math.abs(state.pcUSD * 1.2)) + '% spread';
-  document.getElementById('spread').textContent = sym + fmt(price * 0.0003, dec);
-  document.getElementById('volume').textContent = (150 + Math.random() * 80).toFixed(1) + 'K';
 }
 
 function updateStatus() {
