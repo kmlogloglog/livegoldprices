@@ -406,7 +406,7 @@ const state = {
   closeUSD: 0, closeEUR: 0,
   eurRate: null,
   fxRates: {}, // rates from Frankfurter {EUR: x, GBP: x, ...}
-  selectedCurrency: 'USD',
+  selectedCurrency: localStorage.getItem('goldchart-currency') || 'USD',
   history: [],
   refreshInterval: 30,
   countdown: 30,
@@ -478,11 +478,19 @@ function getChangeInCurrency(curr) {
 
 // ===== CURRENCY SELECTOR =====
 function initCurrencySelector() {
+  // Restore saved currency on page load
+  const saved = state.selectedCurrency;
+  if (saved !== 'USD') {
+    document.querySelectorAll('.currency-pill').forEach(p => p.classList.remove('active'));
+    const target = document.querySelector('.currency-pill[data-currency="' + saved + '"]');
+    if (target) target.classList.add('active');
+  }
   document.querySelectorAll('.currency-pill').forEach(pill => {
     pill.addEventListener('click', function() {
       document.querySelectorAll('.currency-pill').forEach(p => p.classList.remove('active'));
       this.classList.add('active');
       state.selectedCurrency = this.dataset.currency;
+      localStorage.setItem('goldchart-currency', this.dataset.currency);
       updateMainPrice();
       updateStats();
       updateConverter();
@@ -702,6 +710,9 @@ function updateCountdownUI() {
 async function init() {
   initParticles();
   initCurrencySelector();
+  // Sync converter dropdown with saved currency
+  const convCurr = document.getElementById('convCurrency');
+  if (convCurr) convCurr.value = state.selectedCurrency;
   await Promise.all([fetchGoldData(), fetchFXRates()]);
   startCountdown();
   initTradingView();
@@ -709,6 +720,7 @@ async function init() {
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
+<script>window._clarityId="v9rx53xhgh";</script>
 <script src="/assets/js/cookie-consent.js"></script>
 </body>
 </html>
