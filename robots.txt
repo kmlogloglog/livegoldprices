@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://livegoldprices.com/sitemap.xml
+Sitemap: https://goldchartlive.com/sitemap.xml

@@ -2,7 +2,7 @@
 
 Real-time gold price dashboard with interactive charts, market ticker, news, and analysis.
 
-**Live:** [livegoldprices.com](https://livegoldprices.com)
+**Live:** [goldchartlive.com](https://goldchartlive.com)
 
 ## Features
 - ⚡ Real-time gold price in USD & EUR (30s refresh)
