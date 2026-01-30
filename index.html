@@ -493,6 +493,8 @@ function initCurrencySelector() {
       this.classList.add('active');
       state.selectedCurrency = this.dataset.currency;
       updateMainPrice();
+      updateStats();
+      updateConverter();
     });
   });
 }
