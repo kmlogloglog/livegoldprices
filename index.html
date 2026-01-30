@@ -6,46 +6,63 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0a0a">
-<title>AURUM — Live Gold Dashboard</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥇</text></svg>">
+<title>Live Gold Prices — Real-Time Gold Price per Ounce in USD, EUR &amp; More</title>
+<meta name="description" content="Track the live gold price per ounce in real time. View gold prices in USD, EUR, GBP, CHF, AUD, CAD, JPY, and INR with interactive charts, weight converter, and 24h market data.">
+<link rel="canonical" href="https://livegoldprices.com/">
+<!-- Open Graph -->
+<meta property="og:title" content="Live Gold Prices — Real-Time Gold Price per Ounce">
+<meta property="og:description" content="Track the live gold price per ounce in real time. View gold prices in USD, EUR, GBP and more with interactive charts and market data.">
+<meta property="og:url" content="https://livegoldprices.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Live Gold Prices">
+<meta property="og:image" content="https://livegoldprices.com/assets/img/og-image.png">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live Gold Prices — Real-Time Gold Price per Ounce">
+<meta name="twitter:description" content="Track the live gold price per ounce in real time across multiple currencies.">
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23FFD700'/><stop offset='100%25' stop-color='%23B8960C'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><text x='50' y='62' text-anchor='middle' font-size='36' font-weight='bold' fill='%230a0a0a' font-family='sans-serif'>Au</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23FFD700'/><text x='90' y='115' text-anchor='middle' font-size='80' font-weight='bold' fill='%230a0a0a' font-family='sans-serif'>Au</text></svg>">
+<!-- Fonts & Styles -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --gold:#FFD700;--gold-dim:#B8960C;--gold-bright:#FFF0A0;--gold-dark:#8B7500;
-  --bg:#0a0a0a;--bg-card:rgba(255,215,0,0.03);--bg-card-hover:rgba(255,215,0,0.06);
-  --border:rgba(255,215,0,0.08);--border-hover:rgba(255,215,0,0.15);
-  --text:#f0f0f0;--text-dim:#888;--text-muted:#555;
-  --green:#00E676;--green-dim:rgba(0,230,118,0.1);
-  --red:#FF5252;--red-dim:rgba(255,82,82,0.1);
-  --glass:rgba(18,18,18,0.7);--glass-border:rgba(255,215,0,0.1);
-  --radius:16px;--radius-sm:10px;
+<link rel="stylesheet" href="assets/css/style.css">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Live Gold Prices",
+  "url": "https://livegoldprices.com",
+  "description": "Real-time gold price per ounce in USD, EUR, GBP and more currencies. Live charts, converter, and market data.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://livegoldprices.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 }
-html{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
-body{min-height:100vh;min-height:100dvh;background:var(--bg);position:relative;padding-bottom:env(safe-area-inset-bottom)}
-
-/* Ambient background effects */
-body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;
-  background:radial-gradient(ellipse at 30% 20%,rgba(255,215,0,0.03) 0%,transparent 50%),
-             radial-gradient(ellipse at 70% 80%,rgba(255,215,0,0.02) 0%,transparent 50%);
-  animation:ambientShift 20s ease-in-out infinite alternate;z-index:0;pointer-events:none}
-@keyframes ambientShift{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(-5%,-3%) rotate(3deg)}}
-
-/* Floating particles */
-.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:float linear infinite}
-@keyframes float{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:0.6}90%{opacity:0.6}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
-
-/* Grid noise texture overlay */
-.noise{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.015;pointer-events:none;z-index:1;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-
-.container{max-width:1200px;margin:0 auto;padding:20px 16px;position:relative;z-index:2}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FinancialProduct",
+  "name": "Gold (XAU)",
+  "description": "Real-time gold spot price tracking per troy ounce in multiple currencies",
+  "url": "https://livegoldprices.com",
+  "provider": {
+    "@type": "Organization",
+    "name": "Live Gold Prices",
+    "url": "https://livegoldprices.com"
+  },
+  "category": "Precious Metals"
+}
+</script>
+<style>
+/* ===== Dashboard-specific styles ===== */
 
 /* Header */
-.header{text-align:center;margin-bottom:32px;padding-top:env(safe-area-inset-top)}
+.header{text-align:center;margin-bottom:32px;padding-top:12px}
 .logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:8px}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(255,215,0,0.2)}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#0a0a0a;font-family:'JetBrains Mono',monospace;box-shadow:0 4px 20px rgba(255,215,0,0.2)}
 .logo-text{font-size:28px;font-weight:800;letter-spacing:6px;
   background:linear-gradient(135deg,var(--gold-bright),var(--gold),var(--gold-dim));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -57,38 +74,37 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .status-dot.error{background:var(--red);animation:none}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,230,118,0.4)}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(0,230,118,0)}}
 
-/* Card system */
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,215,0,0.15),transparent);opacity:0;transition:opacity 0.3s}
-.card:hover{border-color:var(--border-hover);background:var(--bg-card-hover);transform:translateY(-1px)}
-.card:hover::before{opacity:1}
-.card-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-
 /* Main grid */
-.grid{display:grid;gap:16px;margin-bottom:16px}
-.grid-main{grid-template-columns:1fr 1fr}
+.grid-main{grid-template-columns:1fr}
 .grid-stats{grid-template-columns:repeat(4,1fr)}
 .grid-bottom{grid-template-columns:1fr 1fr}
 
-/* Hero price cards */
-.price-hero{text-align:center;padding:28px 24px}
-.price-currency{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:2px;
+/* Unified hero price card */
+.price-hero{text-align:center;padding:32px 24px 28px}
+.price-currency-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:2px;
   color:var(--gold);padding:4px 12px;border-radius:20px;background:rgba(255,215,0,0.08);margin-bottom:16px}
-.price-value{font-family:'JetBrains Mono','SF Mono',monospace;font-size:42px;font-weight:700;line-height:1;margin-bottom:8px;
+.price-value{font-family:'JetBrains Mono','SF Mono',monospace;font-size:48px;font-weight:700;line-height:1;margin-bottom:8px;
   transition:all 0.4s ease}
 .price-value.up{color:var(--green)}
 .price-value.down{color:var(--red)}
 .price-value.neutral{color:var(--text)}
-.price-decimal{font-size:28px;opacity:0.6}
+.price-decimal{font-size:30px;opacity:0.6}
 .price-unit{font-size:12px;color:var(--text-dim);font-weight:400;margin-top:4px}
 .price-change{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;
   font-family:'JetBrains Mono',monospace;margin-top:12px;transition:all 0.3s}
 .price-change.up{background:var(--green-dim);color:var(--green)}
 .price-change.down{background:var(--red-dim);color:var(--red)}
 .price-change-arrow{font-size:10px}
+
+/* Currency pills */
+.currency-selector{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.currency-pill{
+  padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;
+  background:rgba(255,255,255,0.03);color:var(--text-dim);border:1px solid var(--border);
+  transition:all 0.2s;user-select:none;
+}
+.currency-pill:hover{color:var(--text);border-color:var(--border-hover);background:rgba(255,255,255,0.05)}
+.currency-pill.active{background:rgba(255,215,0,0.12);color:var(--gold);border-color:rgba(255,215,0,0.25)}
 
 /* Stat cards */
 .stat-card{padding:18px 16px}
@@ -120,16 +136,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
   padding:10px 12px;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;outline:none}
 .converter-select option{background:#1a1a1a;color:var(--text)}
 
-/* Loading & animations */
-.skeleton{background:linear-gradient(90deg,rgba(255,215,0,0.03) 25%,rgba(255,215,0,0.06) 50%,rgba(255,215,0,0.03) 75%);
-  background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px;color:transparent!important}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.fade-in{animation:fadeIn 0.6s ease forwards}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.flash{animation:flash 0.5s ease}
-@keyframes flash{0%,100%{opacity:1}50%{opacity:0.5}}
-
-/* Market status bar */
+/* Market bar */
 .market-bar{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
   padding:10px 16px;margin-bottom:16px;border-radius:var(--radius-sm);font-size:11px;color:var(--text-dim);
   background:rgba(255,215,0,0.02);border:1px solid var(--border)}
@@ -144,23 +151,27 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .refresh-ring .bg{stroke:rgba(255,215,0,0.1)}
 .refresh-ring .fg{stroke:var(--gold);stroke-dasharray:50.27;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
 
-/* Footer */
+/* Ticker */
 .ticker-wrap{margin:0 0 16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:rgba(255,215,0,0.01);border-radius:var(--radius-sm)}
-.footer{text-align:center;padding:24px 16px;font-size:10px;color:var(--text-muted);letter-spacing:1px}
-.footer a{color:var(--gold-dim);text-decoration:none}
 
-/* Responsive */
+/* Price flash effect */
+.price-flash-up{animation:flashGreen 0.8s ease}
+.price-flash-down{animation:flashRed 0.8s ease}
+@keyframes flashGreen{0%{text-shadow:0 0 20px rgba(0,230,118,0.5)}100%{text-shadow:none}}
+@keyframes flashRed{0%{text-shadow:0 0 20px rgba(255,82,82,0.5)}100%{text-shadow:none}}
+.flash{animation:flash 0.5s ease}
+@keyframes flash{0%,100%{opacity:1}50%{opacity:0.5}}
+
+/* Responsive overrides */
 @media(max-width:768px){
   .grid-main{grid-template-columns:1fr}
   .grid-stats{grid-template-columns:1fr 1fr}
   .grid-bottom{grid-template-columns:1fr}
   .price-value{font-size:36px}
   .price-decimal{font-size:22px}
-  .container{padding:12px}
   .header{margin-bottom:20px}
   .logo-text{font-size:22px;letter-spacing:4px}
   .chart-container{height:280px}
-  .converter-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:380px){
   .price-value{font-size:30px}
@@ -169,22 +180,6 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
   .grid-stats{grid-template-columns:1fr 1fr}
   .converter-grid{grid-template-columns:1fr}
 }
-
-/* Scrollbar */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(255,215,0,0.15);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,215,0,0.3)}
-
-/* Price flash effect */
-.price-flash-up{animation:flashGreen 0.8s ease}
-.price-flash-down{animation:flashRed 0.8s ease}
-@keyframes flashGreen{0%{text-shadow:0 0 20px rgba(0,230,118,0.5)}100%{text-shadow:none}}
-@keyframes flashRed{0%{text-shadow:0 0 20px rgba(255,82,82,0.5)}100%{text-shadow:none}}
-
-/* Glow line at top */
-.glow-line{position:fixed;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.3;z-index:100}
 </style>
 </head>
 <body>
@@ -193,12 +188,29 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 <div class="noise"></div>
 <div class="particles" id="particles"></div>
 
+<!-- Navigation -->
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">Au</div>
+    <div class="nav-logo-text">LIVE GOLD PRICES</div>
+  </a>
+  <button class="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Dashboard</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/news.html">News</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
 <div class="container">
   <!-- Header -->
   <header class="header fade-in">
     <div class="logo">
       <div class="logo-icon">Au</div>
-      <div class="logo-text">AURUM</div>
+      <div class="logo-text">LIVE GOLD PRICES</div>
     </div>
     <div class="header-sub">Real-Time Gold Intelligence</div>
     <div class="status-bar">
@@ -257,28 +269,27 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
     </div>
   </div>
 
-  <!-- Main price cards -->
+  <!-- Unified Price Card -->
   <div class="grid grid-main fade-in" style="animation-delay:0.15s">
-    <div class="card price-hero" id="cardUSD">
-      <div class="price-currency">🇺🇸 USD — DOLLAR</div>
-      <div class="price-value neutral" id="priceUSD">
-        <span class="skeleton" style="display:inline-block;width:200px;height:42px">&nbsp;</span>
+    <div class="card price-hero" id="cardPrice">
+      <div class="price-currency-badge" id="currencyBadge">🇺🇸 USD — US DOLLAR</div>
+      <div class="price-value neutral" id="priceMain">
+        <span class="skeleton" style="display:inline-block;width:240px;height:48px">&nbsp;</span>
       </div>
       <div class="price-unit">per troy ounce (31.1g)</div>
-      <div class="price-change" id="changeUSD" style="visibility:hidden">
+      <div class="price-change" id="changeMain" style="visibility:hidden">
         <span class="price-change-arrow">▲</span>
         <span>+0.00 (0.00%)</span>
       </div>
-    </div>
-    <div class="card price-hero" id="cardEUR">
-      <div class="price-currency">🇪🇺 EUR — EURO</div>
-      <div class="price-value neutral" id="priceEUR">
-        <span class="skeleton" style="display:inline-block;width:200px;height:42px">&nbsp;</span>
-      </div>
-      <div class="price-unit">per troy ounce (31.1g)</div>
-      <div class="price-change" id="changeEUR" style="visibility:hidden">
-        <span class="price-change-arrow">▲</span>
-        <span>+0.00 (0.00%)</span>
+      <div class="currency-selector" id="currencySelector">
+        <div class="currency-pill active" data-currency="USD">USD</div>
+        <div class="currency-pill" data-currency="EUR">EUR</div>
+        <div class="currency-pill" data-currency="GBP">GBP</div>
+        <div class="currency-pill" data-currency="CHF">CHF</div>
+        <div class="currency-pill" data-currency="AUD">AUD</div>
+        <div class="currency-pill" data-currency="CAD">CAD</div>
+        <div class="currency-pill" data-currency="JPY">JPY</div>
+        <div class="currency-pill" data-currency="INR">INR</div>
       </div>
     </div>
   </div>
@@ -332,6 +343,12 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
         <select class="converter-select" id="convCurrency" onchange="updateConverter()">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="CHF">CHF</option>
+          <option value="AUD">AUD</option>
+          <option value="CAD">CAD</option>
+          <option value="JPY">JPY</option>
+          <option value="INR">INR</option>
         </select>
       </div>
       <div class="converter-grid">
@@ -356,12 +373,19 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
   </div>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div>AURUM DASHBOARD · Built with ☕ and ✨ · Data via <a href="https://goldprice.org" target="_blank">GoldPrice.org</a>, <a href="https://www.tradingview.com" target="_blank">TradingView</a> &amp; <a href="https://frankfurter.app" target="_blank">Frankfurter</a></div>
-    <div style="margin-top:4px;opacity:0.5">Prices are indicative · Not financial advice · Updated every 30 seconds</div>
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/about.html">About</a>
+      <a href="/blog/">Blog</a>
+      <a href="/news.html">News</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Live Gold Prices &middot; Built by <a href="https://ramlabs.eu" target="_blank" rel="noopener">ramlabs.eu</a></div>
   </footer>
 </div>
 
+<script src="assets/js/nav.js"></script>
 <script>
 // ===== STATE =====
 const state = {
@@ -371,12 +395,24 @@ const state = {
   pcUSD: 0, pcEUR: 0,
   closeUSD: 0, closeEUR: 0,
   eurRate: null,
-  history: [], // {t, usd, eur}
-  chartRange: '24h',
+  fxRates: {}, // rates from Frankfurter {EUR: x, GBP: x, ...}
+  selectedCurrency: 'USD',
+  history: [],
   refreshInterval: 30,
   countdown: 30,
   error: false,
   lastUpdate: null
+};
+
+const currencyInfo = {
+  USD: { flag: '🇺🇸', name: 'US DOLLAR', symbol: '$', decimals: 2 },
+  EUR: { flag: '🇪🇺', name: 'EURO', symbol: '€', decimals: 2 },
+  GBP: { flag: '🇬🇧', name: 'BRITISH POUND', symbol: '£', decimals: 2 },
+  CHF: { flag: '🇨🇭', name: 'SWISS FRANC', symbol: 'Fr', decimals: 2 },
+  AUD: { flag: '🇦🇺', name: 'AUSTRALIAN DOLLAR', symbol: 'A$', decimals: 2 },
+  CAD: { flag: '🇨🇦', name: 'CANADIAN DOLLAR', symbol: 'C$', decimals: 2 },
+  JPY: { flag: '🇯🇵', name: 'JAPANESE YEN', symbol: '¥', decimals: 0 },
+  INR: { flag: '🇮🇳', name: 'INDIAN RUPEE', symbol: '₹', decimals: 0 }
 };
 
 // ===== PARTICLES =====
@@ -398,15 +434,46 @@ function fmt(n, decimals = 2) {
   if (n == null || isNaN(n)) return '—';
   return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
-function fmtPrice(n) {
-  if (n == null || isNaN(n)) return '<span class="skeleton" style="display:inline-block;width:180px;height:40px">&nbsp;</span>';
-  const parts = fmt(n).split('.');
-  return `$${parts[0]}.<span class="price-decimal">${parts[1]}</span>`;
+function fmtPriceCurrency(n, curr) {
+  if (n == null || isNaN(n)) return '<span class="skeleton" style="display:inline-block;width:220px;height:46px">&nbsp;</span>';
+  const info = currencyInfo[curr] || currencyInfo.USD;
+  const dec = info.decimals;
+  if (dec === 0) {
+    return info.symbol + Math.round(n).toLocaleString('en-US');
+  }
+  const parts = fmt(n, dec).split('.');
+  return `${info.symbol}${parts[0]}.<span class="price-decimal">${parts[1]}</span>`;
 }
-function fmtPriceEUR(n) {
-  if (n == null || isNaN(n)) return '<span class="skeleton" style="display:inline-block;width:180px;height:40px">&nbsp;</span>';
-  const parts = fmt(n).split('.');
-  return `€${parts[0]}.<span class="price-decimal">${parts[1]}</span>`;
+
+// ===== CURRENCY CONVERSION =====
+function getGoldPriceInCurrency(curr) {
+  if (curr === 'USD') return state.priceUSD;
+  if (curr === 'EUR') return state.priceEUR;
+  if (state.priceUSD && state.fxRates[curr]) {
+    return state.priceUSD * state.fxRates[curr];
+  }
+  return null;
+}
+function getChangeInCurrency(curr) {
+  if (curr === 'USD') return { change: state.changeUSD, pc: state.pcUSD };
+  if (curr === 'EUR') return { change: state.changeEUR, pc: state.pcEUR };
+  // For other currencies, calculate from USD change using FX rate
+  if (state.changeUSD != null && state.fxRates[curr]) {
+    return { change: state.changeUSD * state.fxRates[curr], pc: state.pcUSD };
+  }
+  return { change: 0, pc: 0 };
+}
+
+// ===== CURRENCY SELECTOR =====
+function initCurrencySelector() {
+  document.querySelectorAll('.currency-pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.currency-pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      state.selectedCurrency = this.dataset.currency;
+      updateMainPrice();
+    });
+  });
 }
 
 // ===== FETCH DATA =====
@@ -416,15 +483,12 @@ async function fetchGoldData() {
       fetch('https://data-asg.goldprice.org/dbXRates/USD'),
       fetch('https://data-asg.goldprice.org/dbXRates/EUR')
     ]);
-    
     if (!usdRes.ok || !eurRes.ok) throw new Error('API response not ok');
-    
     const usdData = await usdRes.json();
     const eurData = await eurRes.json();
-    
     const usd = usdData.items[0];
     const eur = eurData.items[0];
-    
+
     state.prevPriceUSD = state.priceUSD;
     state.prevPriceEUR = state.priceEUR;
     state.priceUSD = usd.xauPrice;
@@ -437,18 +501,11 @@ async function fetchGoldData() {
     state.closeEUR = eur.xauClose;
     state.lastUpdate = new Date();
     state.error = false;
-    
-    // Add to history
-    state.history.push({
-      t: Date.now(),
-      usd: usd.xauPrice,
-      eur: eur.xauPrice
-    });
-    // Keep last 24h worth of 30s intervals (2880 points)
+
+    state.history.push({ t: Date.now(), usd: usd.xauPrice, eur: eur.xauPrice });
     if (state.history.length > 2880) state.history = state.history.slice(-2880);
-    
+
     updateUI();
-    
   } catch (err) {
     console.error('Fetch error:', err);
     state.error = true;
@@ -456,71 +513,68 @@ async function fetchGoldData() {
   }
 }
 
-async function fetchEURRate() {
+async function fetchFXRates() {
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR');
+    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,CHF,AUD,CAD,JPY,INR');
     const data = await res.json();
+    state.fxRates = data.rates;
     state.eurRate = data.rates.EUR;
     document.getElementById('eurRate').textContent = state.eurRate.toFixed(4);
+    updateMainPrice();
   } catch (e) {
-    console.error('EUR rate error:', e);
+    console.error('FX rate error:', e);
   }
 }
 
 // ===== UPDATE UI =====
 function updateUI() {
-  // USD Price
-  const usdEl = document.getElementById('priceUSD');
-  usdEl.innerHTML = fmtPrice(state.priceUSD);
-  usdEl.className = 'price-value ' + (state.pcUSD >= 0 ? 'up' : 'down');
-  
-  if (state.prevPriceUSD !== null && state.prevPriceUSD !== state.priceUSD) {
-    usdEl.classList.add(state.priceUSD > state.prevPriceUSD ? 'price-flash-up' : 'price-flash-down');
-    setTimeout(() => usdEl.classList.remove('price-flash-up', 'price-flash-down'), 800);
+  updateMainPrice();
+  updateStats();
+  updateConverter();
+  updateStatus();
+}
+
+function updateMainPrice() {
+  const curr = state.selectedCurrency;
+  const info = currencyInfo[curr];
+  const price = getGoldPriceInCurrency(curr);
+  const { change, pc } = getChangeInCurrency(curr);
+
+  // Badge
+  document.getElementById('currencyBadge').innerHTML = `${info.flag} ${curr} — ${info.name}`;
+
+  // Price
+  const priceEl = document.getElementById('priceMain');
+  priceEl.innerHTML = fmtPriceCurrency(price, curr);
+  priceEl.className = 'price-value ' + (pc >= 0 ? 'up' : 'down');
+
+  // Flash effect
+  if (state.prevPriceUSD !== null && state.prevPriceUSD !== state.priceUSD && curr === 'USD') {
+    priceEl.classList.add(state.priceUSD > state.prevPriceUSD ? 'price-flash-up' : 'price-flash-down');
+    setTimeout(() => priceEl.classList.remove('price-flash-up', 'price-flash-down'), 800);
   }
-  
-  // EUR Price
-  const eurEl = document.getElementById('priceEUR');
-  eurEl.innerHTML = fmtPriceEUR(state.priceEUR);
-  eurEl.className = 'price-value ' + (state.pcEUR >= 0 ? 'up' : 'down');
-  
-  if (state.prevPriceEUR !== null && state.prevPriceEUR !== state.priceEUR) {
-    eurEl.classList.add(state.priceEUR > state.prevPriceEUR ? 'price-flash-up' : 'price-flash-down');
-    setTimeout(() => eurEl.classList.remove('price-flash-up', 'price-flash-down'), 800);
+
+  // Change badge
+  if (price != null) {
+    const el = document.getElementById('changeMain');
+    const isUp = change >= 0;
+    el.style.visibility = 'visible';
+    el.className = 'price-change ' + (isUp ? 'up' : 'down');
+    const arrow = isUp ? '▲' : '▼';
+    const sign = isUp ? '+' : '';
+    const dec = info.decimals;
+    el.innerHTML = `<span class="price-change-arrow">${arrow}</span><span>${sign}${fmt(change, dec)} (${sign}${fmt(pc)}%)</span>`;
   }
-  
-  // Changes
-  updateChange('changeUSD', state.changeUSD, state.pcUSD);
-  updateChange('changeEUR', state.changeEUR, state.pcEUR);
-  
-  // Stats
-  const high = state.closeUSD + Math.max(0, state.changeUSD) + Math.abs(state.changeUSD) * 0.1;
-  const low = state.closeUSD + Math.min(0, state.changeUSD) - Math.abs(state.changeUSD) * 0.05;
-  const range = high - low;
-  
+}
+
+function updateStats() {
   document.getElementById('high24').textContent = '$' + fmt(Math.max(state.priceUSD, state.closeUSD));
   document.getElementById('low24').textContent = '$' + fmt(Math.min(state.priceUSD, state.closeUSD) - Math.abs(state.changeUSD) * 0.3);
   document.getElementById('openPrice').textContent = '$' + fmt(state.closeUSD);
   document.getElementById('range24').textContent = '$' + fmt(Math.abs(state.changeUSD * 1.2));
   document.getElementById('rangePercent').textContent = fmt(Math.abs(state.pcUSD * 1.2)) + '% spread';
-  
-  // Spread (simulated bid-ask)
   document.getElementById('spread').textContent = '$' + fmt(state.priceUSD * 0.0003);
   document.getElementById('volume').textContent = (150 + Math.random() * 80).toFixed(1) + 'K';
-  
-  updateConverter();
-  updateStatus();
-  drawChart();
-}
-
-function updateChange(id, change, pc) {
-  const el = document.getElementById(id);
-  const isUp = change >= 0;
-  el.style.visibility = 'visible';
-  el.className = 'price-change ' + (isUp ? 'up' : 'down');
-  const arrow = isUp ? '▲' : '▼';
-  const sign = isUp ? '+' : '';
-  el.innerHTML = `<span class="price-change-arrow">${arrow}</span><span>${sign}${fmt(change)} (${sign}${fmt(pc)}%)</span>`;
 }
 
 function updateStatus() {
@@ -531,8 +585,7 @@ function updateStatus() {
     text.textContent = 'Connection issue · Retrying...';
   } else if (state.lastUpdate) {
     dot.className = 'status-dot';
-    const now = new Date();
-    const diff = Math.floor((now - state.lastUpdate) / 1000);
+    const diff = Math.floor((Date.now() - state.lastUpdate) / 1000);
     text.textContent = `Live · Updated ${diff < 5 ? 'just now' : diff + 's ago'} · ${state.lastUpdate.toLocaleTimeString()}`;
   }
 }
@@ -541,52 +594,42 @@ function updateStatus() {
 function updateConverter() {
   const qty = parseFloat(document.getElementById('convInput').value) || 0;
   const curr = document.getElementById('convCurrency').value;
-  const price = curr === 'USD' ? state.priceUSD : state.priceEUR;
-  const sym = curr === 'USD' ? '$' : '€';
-  
+  let price;
+  if (curr === 'USD') price = state.priceUSD;
+  else if (curr === 'EUR') price = state.priceEUR;
+  else if (state.priceUSD && state.fxRates[curr]) price = state.priceUSD * state.fxRates[curr];
+  else price = null;
+
+  const info = currencyInfo[curr] || currencyInfo.USD;
+  const sym = info.symbol;
+  const dec = info.decimals;
   if (!price) return;
-  
+
   const perOz = price * qty;
   const perGram = (price / 31.1035) * qty;
   const perKg = perGram * 1000;
   const perTola = (price / 31.1035) * 11.6638 * qty;
-  
-  document.getElementById('convOz').textContent = sym + fmt(perOz);
-  document.getElementById('convGram').textContent = sym + fmt(perGram);
+
+  document.getElementById('convOz').textContent = sym + fmt(perOz, dec);
+  document.getElementById('convGram').textContent = sym + fmt(perGram, dec);
   document.getElementById('convKg').textContent = sym + fmt(perKg, 0);
-  document.getElementById('convTola').textContent = sym + fmt(perTola);
+  document.getElementById('convTola').textContent = sym + fmt(perTola, dec);
 }
 
-// ===== CHART =====
 // ===== TRADINGVIEW CHART =====
 let tvWidget = null;
 let tvInterval = '15';
-
 function initTradingView() {
-  if (typeof TradingView === 'undefined') {
-    setTimeout(initTradingView, 500);
-    return;
-  }
+  if (typeof TradingView === 'undefined') { setTimeout(initTradingView, 500); return; }
   tvWidget = new TradingView.widget({
-    autosize: true,
-    symbol: 'OANDA:XAUUSD',
-    interval: tvInterval,
-    timezone: 'Europe/Athens',
-    theme: 'dark',
-    style: '1',
-    locale: 'en',
-    toolbar_bg: '#0a0a0a',
-    enable_publishing: false,
-    hide_top_toolbar: true,
-    hide_legend: false,
-    save_image: false,
-    backgroundColor: '#0a0a0a',
-    gridColor: 'rgba(255,215,0,0.04)',
-    container_id: 'tradingview_chart',
+    autosize: true, symbol: 'OANDA:XAUUSD', interval: tvInterval,
+    timezone: 'Etc/UTC', theme: 'dark', style: '1', locale: 'en',
+    toolbar_bg: '#0a0a0a', enable_publishing: false, hide_top_toolbar: true,
+    hide_legend: false, save_image: false, backgroundColor: '#0a0a0a',
+    gridColor: 'rgba(255,215,0,0.04)', container_id: 'tradingview_chart',
     studies: [],
     overrides: {
-      'paneProperties.background': '#0a0a0a',
-      'paneProperties.backgroundType': 'solid',
+      'paneProperties.background': '#0a0a0a', 'paneProperties.backgroundType': 'solid',
       'paneProperties.vertGridProperties.color': 'rgba(255,215,0,0.04)',
       'paneProperties.horzGridProperties.color': 'rgba(255,215,0,0.04)',
       'scalesProperties.textColor': '#888',
@@ -599,58 +642,41 @@ function initTradingView() {
     }
   });
 }
-
 function setTVInterval(interval, el) {
   tvInterval = interval;
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  // Re-init widget with new interval
-  const container = document.getElementById('tradingview_chart');
-  container.innerHTML = '';
+  document.getElementById('tradingview_chart').innerHTML = '';
   initTradingView();
 }
-
-function drawChart() {
-  // TradingView handles the chart now — no-op
-}
-
-// Old chart data functions removed — TradingView handles everything
 
 // ===== REFRESH COUNTDOWN =====
 function startCountdown() {
   state.countdown = state.refreshInterval;
   updateCountdownUI();
-  
   setInterval(() => {
     state.countdown--;
-    if (state.countdown <= 0) {
-      state.countdown = state.refreshInterval;
-      fetchGoldData();
-    }
+    if (state.countdown <= 0) { state.countdown = state.refreshInterval; fetchGoldData(); }
     updateCountdownUI();
     updateStatus();
   }, 1000);
 }
-
 function updateCountdownUI() {
   document.getElementById('refreshCountdown').textContent = state.countdown + 's';
   const ring = document.getElementById('refreshRing');
   const circumference = 2 * Math.PI * 8;
-  const offset = circumference * (1 - state.countdown / state.refreshInterval);
-  ring.style.strokeDashoffset = offset;
+  ring.style.strokeDashoffset = circumference * (1 - state.countdown / state.refreshInterval);
 }
 
 // ===== INIT =====
 async function init() {
   initParticles();
-  await Promise.all([fetchGoldData(), fetchEURRate()]);
+  initCurrencySelector();
+  await Promise.all([fetchGoldData(), fetchFXRates()]);
   startCountdown();
   initTradingView();
-  
-  // Refresh EUR rate every 5 minutes
-  setInterval(fetchEURRate, 300000);
+  setInterval(fetchFXRates, 300000);
 }
-
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>

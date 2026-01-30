@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Gold Market News — Latest Updates | Live Gold Prices</title>
+<meta name="description" content="Stay updated with the latest gold market news, analysis, and expert insights. Real-time gold news feed covering price movements, central bank activity, and market trends.">
+<link rel="canonical" href="https://livegoldprices.com/news.html">
+<meta property="og:title" content="Gold Market News — Latest Updates | Live Gold Prices">
+<meta property="og:description" content="Stay updated with the latest gold market news. Real-time coverage of price movements, central bank activity, and precious metals market trends.">
+<meta property="og:url" content="https://livegoldprices.com/news.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gold Market News | Live Gold Prices">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23FFD700'/><stop offset='100%25' stop-color='%23B8960C'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><text x='50' y='62' text-anchor='middle' font-size='36' font-weight='bold' fill='%230a0a0a' font-family='sans-serif'>Au</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.news-intro{text-align:center;max-width:640px;margin:0 auto 32px;color:var(--text-dim);font-size:15px;line-height:1.7}
+.news-widgets{display:grid;gap:24px}
+.news-section-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.news-widget-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;padding:0}
+.news-mini-chart{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+@media(max-width:768px){.news-mini-chart{grid-template-columns:1fr}}
+.news-mini-chart .card{padding:0;overflow:hidden}
+</style>
+</head>
+<body>
+<div class="glow-line"></div>
+<div class="noise"></div>
+
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">Au</div>
+    <div class="nav-logo-text">LIVE GOLD PRICES</div>
+  </a>
+  <button class="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="/">Dashboard</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/news.html" class="active">News</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="page-header fade-in">
+    <h1>Gold Market News</h1>
+    <p>Latest updates, analysis, and market-moving events</p>
+  </div>
+
+  <p class="news-intro fade-in" style="animation-delay:0.1s">
+    Stay informed with real-time gold market news and analysis. Our news feed covers price movements, central bank activity, macroeconomic events, and expert commentary affecting gold and precious metals markets worldwide.
+  </p>
+
+  <div class="news-widgets fade-in" style="animation-delay:0.15s">
+
+    <!-- TradingView Timeline Widget -->
+    <div>
+      <div class="news-section-title">📰 Market Timeline — XAU/USD</div>
+      <div class="news-widget-box" style="height:680px">
+        <div class="tradingview-widget-container" style="height:100%">
+          <div class="tradingview-widget-container__widget" style="height:100%"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+          {
+            "feedMode": "symbol",
+            "symbol": "OANDA:XAUUSD",
+            "isTransparent": true,
+            "displayMode": "regular",
+            "width": "100%",
+            "height": "100%",
+            "colorTheme": "dark",
+            "locale": "en"
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market Overview Widget -->
+    <div>
+      <div class="news-section-title">📊 Precious Metals Overview</div>
+      <div class="news-widget-box" style="height:420px">
+        <div class="tradingview-widget-container" style="height:100%">
+          <div class="tradingview-widget-container__widget" style="height:100%"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {
+            "colorTheme": "dark",
+            "dateRange": "1D",
+            "showChart": true,
+            "locale": "en",
+            "width": "100%",
+            "height": "100%",
+            "largeChartUrl": "",
+            "isTransparent": true,
+            "showSymbolLogo": true,
+            "showFloatingTooltip": true,
+            "tabs": [
+              {
+                "title": "Precious Metals",
+                "symbols": [
+                  {"s": "OANDA:XAUUSD", "d": "Gold"},
+                  {"s": "OANDA:XAGUSD", "d": "Silver"},
+                  {"s": "NYMEX:PL1!", "d": "Platinum"},
+                  {"s": "NYMEX:PA1!", "d": "Palladium"},
+                  {"s": "TVC:DXY", "d": "US Dollar Index"},
+                  {"s": "OANDA:EURUSD", "d": "EUR/USD"}
+                ]
+              }
+            ]
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini charts for Gold & Silver -->
+    <div>
+      <div class="news-section-title">📈 Live Charts</div>
+      <div class="news-mini-chart">
+        <div class="card" style="height:350px;padding:0">
+          <div class="tradingview-widget-container" style="height:100%">
+            <div class="tradingview-widget-container__widget" style="height:100%"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {
+              "symbol": "OANDA:XAUUSD",
+              "width": "100%",
+              "height": "100%",
+              "locale": "en",
+              "dateRange": "1D",
+              "colorTheme": "dark",
+              "isTransparent": true,
+              "autosize": true,
+              "largeChartUrl": ""
+            }
+            </script>
+          </div>
+        </div>
+        <div class="card" style="height:350px;padding:0">
+          <div class="tradingview-widget-container" style="height:100%">
+            <div class="tradingview-widget-container__widget" style="height:100%"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {
+              "symbol": "OANDA:XAGUSD",
+              "width": "100%",
+              "height": "100%",
+              "locale": "en",
+              "dateRange": "1D",
+              "colorTheme": "dark",
+              "isTransparent": true,
+              "autosize": true,
+              "largeChartUrl": ""
+            }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/about.html">About</a>
+      <a href="/blog/">Blog</a>
+      <a href="/news.html">News</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Live Gold Prices &middot; Built by <a href="https://ramlabs.eu" target="_blank" rel="noopener">ramlabs.eu</a></div>
+  </footer>
+</div>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>
