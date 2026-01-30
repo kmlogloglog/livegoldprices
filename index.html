@@ -527,16 +527,21 @@ async function fetchGoldData() {
 
 async function fetchFXRates() {
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,CHF,AUD,CAD,JPY,INR,SAR,EGP');
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
     const data = await res.json();
-    state.fxRates = data.rates;
-    // Frankfurter may not have SAR/EGP — use fixed approximate rates as fallback
-    if (!state.fxRates.SAR) state.fxRates.SAR = 3.75; // SAR is pegged to USD at ~3.75
-    if (!state.fxRates.EGP) state.fxRates.EGP = 50.5; // EGP approximate rate
-    state.eurRate = data.rates.EUR;
+    if (data.result === 'success') {
+      state.fxRates = data.rates;
+      state.eurRate = data.rates.EUR;
+    }
     updateMainPrice();
+    updateStats();
   } catch (e) {
     console.error('FX rate error:', e);
+    // Fallback rates if API fails
+    if (!state.fxRates.EUR) state.fxRates.EUR = 0.836;
+    if (!state.fxRates.GBP) state.fxRates.GBP = 0.724;
+    if (!state.fxRates.SAR) state.fxRates.SAR = 3.75;
+    if (!state.fxRates.EGP) state.fxRates.EGP = 46.84;
   }
 }
 
