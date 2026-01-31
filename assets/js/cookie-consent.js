@@ -35,8 +35,15 @@
   };
 
   function loadTracking() {
-    // Google AdSense is already loaded (needed for page function)
-    // Load Clarity if consent given
+    // Load Google AdSense
+    if (!document.querySelector('script[src*="adsbygoogle"]')) {
+      var s = document.createElement('script');
+      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6679038655008304';
+      s.crossOrigin = 'anonymous';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    // Load Clarity
     if (window._clarityId) {
       (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -46,7 +53,7 @@
     }
   }
 
-  // If previously accepted, load tracking
+  // If previously accepted, load tracking immediately
   if (localStorage.getItem('cookie-consent') === 'accepted') {
     loadTracking();
   }
