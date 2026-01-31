@@ -1,5 +1,22 @@
 /* Cookie Consent Banner — goldchartlive.com */
 (function() {
+  // Always load AdSense + Clarity regardless of consent
+  if (!document.querySelector('script[src*="adsbygoogle"]')) {
+    var s = document.createElement('script');
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6679038655008304';
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+  if (window._clarityId) {
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window,document,"clarity","script",window._clarityId);
+  }
+
+  // Banner — informational only, dismiss on any click
   if (localStorage.getItem('cookie-consent')) return;
 
   var overlay = document.createElement('div');
@@ -21,40 +38,12 @@
   document.head.appendChild(style);
   document.body.appendChild(overlay);
 
-  document.getElementById('cookie-accept').onclick = function() {
+  function dismiss() {
     localStorage.setItem('cookie-consent', 'accepted');
     overlay.style.animation = 'slideUp 0.3s ease reverse forwards';
     setTimeout(function() { overlay.remove(); }, 300);
-    loadTracking();
-  };
-
-  document.getElementById('cookie-reject').onclick = function() {
-    localStorage.setItem('cookie-consent', 'rejected');
-    overlay.style.animation = 'slideUp 0.3s ease reverse forwards';
-    setTimeout(function() { overlay.remove(); }, 300);
-  };
-
-  function loadTracking() {
-    // Load Google AdSense
-    if (!document.querySelector('script[src*="adsbygoogle"]')) {
-      var s = document.createElement('script');
-      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6679038655008304';
-      s.crossOrigin = 'anonymous';
-      s.async = true;
-      document.head.appendChild(s);
-    }
-    // Load Clarity
-    if (window._clarityId) {
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window,document,"clarity","script",window._clarityId);
-    }
   }
 
-  // If previously accepted, load tracking immediately
-  if (localStorage.getItem('cookie-consent') === 'accepted') {
-    loadTracking();
-  }
+  document.getElementById('cookie-accept').onclick = dismiss;
+  document.getElementById('cookie-reject').onclick = dismiss;
 })();
