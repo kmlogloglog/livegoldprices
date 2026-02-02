@@ -429,3 +429,10 @@ body{overflow-x:hidden}
   .page-header h1{font-size:20px}
   .article-header h1{font-size:20px}
 }
+
+
+/* Block TradingView attribution links that redirect users */
+.tradingview-widget-container a[href*="tradingview.com"]{pointer-events:none!important;visibility:hidden!important}
+.tradingview-widget-container__widget+div{display:none!important}
+.tradingview-widget-container__widget+div a{display:none!important;pointer-events:none!important}
+div[class*="copyright"]{display:none!important}
