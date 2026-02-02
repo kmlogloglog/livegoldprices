@@ -197,6 +197,128 @@ body{overflow-x:hidden}
 .page-content strong{color:var(--text);font-weight:600}
 
 /* ============================================
+   LIVE PRICE BANNER (about page)
+   ============================================ */
+.live-price-banner {
+  margin: 0 0 24px 0;
+  padding: 0;
+}
+.live-price-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px;
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.live-price-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.live-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.live-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.live-change {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.live-change.price-up {
+  background: var(--green-dim);
+  color: var(--green);
+}
+.live-change.price-down {
+  background: var(--red-dim);
+  color: var(--red);
+}
+.btn-live-chart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 8px;
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-live-chart:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-1px);
+}
+@media(max-width:768px){
+  .live-price-banner-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  .live-price-info {
+    justify-content: center;
+  }
+  .live-price {
+    font-size: 22px;
+  }
+}
+
+/* ============================================
+   BLOG CTA BANNER (in posts)
+   ============================================ */
+.blog-cta-banner {
+  margin: 1rem 0 2rem;
+  text-align: center;
+}
+.btn-blog-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 8px;
+  color: #FFD700;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-blog-cta:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ============================================
    BLOG LISTING
    ============================================ */
 .blog-grid{

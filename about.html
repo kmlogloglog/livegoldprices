@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#0a0a0a">
 <title>About Us — Free Real-Time Gold Prices | Live Gold Prices</title>
 <meta name="description" content="Learn about Live Gold Prices — our mission to provide free, real-time gold price data in multiple currencies. Built by ramlabs.eu with data from GoldPrice.org and TradingView.">
-<link rel="canonical" href="https://goldchartlive.com/about.html">
+<link rel="canonical" href="https://goldchartlive.com/about">
 <meta property="og:title" content="About Live Gold Prices — Free Real-Time Gold Data">
 <meta property="og:description" content="Our mission: free, real-time gold price data for everyone. Learn about our data sources and the team behind Live Gold Prices.">
-<meta property="og:url" content="https://goldchartlive.com/about.html">
+<meta property="og:url" content="https://goldchartlive.com/about">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Live Gold Prices">
@@ -28,14 +28,27 @@
     <div class="nav-logo-text">LIVE GOLD PRICES</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/">Dashboard</a></li>
+    <li><a href="/">Live Charts</a></li>
     <li><a href="/blog/">Blog</a></li>
-    <li><a href="/news.html">News</a></li>
-    <li><a href="/about.html" class="active">About</a></li>
+    <li><a href="/news">News</a></li>
+    
   </ul>
 </nav>
 
 <div class="container">
+  <!-- Live Price Banner -->
+  <div class="live-price-banner fade-in">
+    <div class="live-price-banner-inner">
+      <div class="live-price-info">
+        <span class="live-dot"></span>
+        <span class="live-label">Gold Price Now</span>
+        <span class="live-price" id="banner-gold-price">Loading...</span>
+        <span class="live-change" id="banner-gold-change"></span>
+      </div>
+      <a href="/" class="btn-live-chart">📊 Go to Live Charts</a>
+    </div>
+  </div>
+
   <div class="page-header fade-in">
     <h1>About Live Gold Prices</h1>
     <p>Free, real-time gold price data for everyone</p>
@@ -83,7 +96,7 @@
 
     <h2>Disclaimer</h2>
     <p>Live Gold Prices provides information for <strong>educational and informational purposes only</strong>. The gold prices, exchange rates, and market data displayed on this website are indicative and may differ from actual market prices. We are not a financial advisor, broker, or dealer. Nothing on this website constitutes financial advice or a recommendation to buy, sell, or hold gold or any other financial instrument.</p>
-    <p>Always consult a qualified financial professional before making investment decisions. For our full disclaimer, please read our <a href="/terms.html">Terms of Service</a>.</p>
+    <p>Always consult a qualified financial professional before making investment decisions. For our full disclaimer, please read our <a href="/terms">Terms of Service</a>.</p>
 
     <h2>Contact Us</h2>
     <p>We'd love to hear from you. Whether you have a question, suggestion, or just want to say hello, feel free to reach out:</p>
@@ -95,17 +108,36 @@
 
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/about.html">About</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/about">About</a>
       <a href="/blog/">Blog</a>
-      <a href="/news.html">News</a>
+      <a href="/news">News</a>
     </div>
     <div class="footer-copy">&copy; 2026 Live Gold Prices &middot; Built by <a href="https://ramlabs.eu" target="_blank" rel="noopener">ramlabs.eu</a></div>
   </footer>
 </div>
 
 <script src="assets/js/nav.js"></script>
+<script>
+// Fetch live gold price for banner
+(async function() {
+  try {
+    const resp = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
+    const data = await resp.json();
+    const price = data.items[0].xauPrice;
+    const change = data.items[0].chgXau;
+    const el = document.getElementById('banner-gold-price');
+    const chgEl = document.getElementById('banner-gold-change');
+    if (el) el.textContent = '$' + Math.abs(price).toFixed(2);
+    if (chgEl) {
+      const pct = ((change / (price - change)) * 100).toFixed(2);
+      chgEl.textContent = (change >= 0 ? '▲' : '▼') + ' $' + Math.abs(change).toFixed(2) + ' (' + (change >= 0 ? '+' : '') + pct + '%)';
+      chgEl.classList.add(change >= 0 ? 'price-up' : 'price-down');
+    }
+  } catch(e) { console.warn('Price fetch failed:', e); }
+})();
+</script>
 <script>window._clarityId="v9rx53xhgh";</script>
 <script src="/assets/js/cookie-consent.js"></script>
 </body>
