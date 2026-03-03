@@ -491,30 +491,39 @@ function initCurrencySelector() {
 // ===== FETCH DATA =====
 async function fetchGoldData() {
   try {
-    const [usdRes, eurRes] = await Promise.all([
-      fetch('https://data-asg.goldprice.org/dbXRates/USD'),
-      fetch('https://data-asg.goldprice.org/dbXRates/EUR')
+    // Use fawazahmed0's free currency API (jsdelivr CDN, CORS enabled)
+    const today = new Date().toISOString().split('T')[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    
+    const [currentRes, yesterdayRes] = await Promise.all([
+      fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/xau.json'),
+      fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${yesterday}/v1/currencies/xau.json`)
     ]);
-    if (!usdRes.ok || !eurRes.ok) throw new Error('API response not ok');
-    const usdData = await usdRes.json();
-    const eurData = await eurRes.json();
-    const usd = usdData.items[0];
-    const eur = eurData.items[0];
+    
+    if (!currentRes.ok) throw new Error('API response not ok');
+    const currentData = await currentRes.json();
+    const yesterdayData = yesterdayRes.ok ? await yesterdayRes.json() : null;
+    
+    const xau = currentData.xau;
+    const xauYesterday = yesterdayData?.xau || {};
 
     state.prevPriceUSD = state.priceUSD;
     state.prevPriceEUR = state.priceEUR;
-    state.priceUSD = usd.xauPrice;
-    state.priceEUR = eur.xauPrice;
-    state.changeUSD = usd.chgXau;
-    state.changeEUR = eur.chgXau;
-    state.pcUSD = usd.pcXau;
-    state.pcEUR = eur.pcXau;
-    state.closeUSD = usd.xauClose;
-    state.closeEUR = eur.xauClose;
+    state.priceUSD = xau.usd;
+    state.priceEUR = xau.eur;
+    
+    // Calculate change from yesterday's close
+    state.closeUSD = xauYesterday.usd || state.priceUSD;
+    state.closeEUR = xauYesterday.eur || state.priceEUR;
+    state.changeUSD = state.priceUSD - state.closeUSD;
+    state.changeEUR = state.priceEUR - state.closeEUR;
+    state.pcUSD = state.closeUSD ? ((state.priceUSD - state.closeUSD) / state.closeUSD) * 100 : 0;
+    state.pcEUR = state.closeEUR ? ((state.priceEUR - state.closeEUR) / state.closeEUR) * 100 : 0;
+    
     state.lastUpdate = new Date();
     state.error = false;
 
-    state.history.push({ t: Date.now(), usd: usd.xauPrice, eur: eur.xauPrice });
+    state.history.push({ t: Date.now(), usd: xau.usd, eur: xau.eur });
     if (state.history.length > 2880) state.history = state.history.slice(-2880);
 
     updateUI();
